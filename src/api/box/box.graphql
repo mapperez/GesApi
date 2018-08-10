@@ -1,0 +1,38 @@
+type Owner {
+    _id: ID!
+    email: String!
+}
+
+enum Estado {
+  Bloqueado
+  Disponible
+}
+
+type Box {
+  _id: ID
+  nombre: String!
+  valor: Int
+  estado: Estado
+  owner: Owner!
+  createdAt: String
+}
+input BoxInput {
+  nombre: String!
+  valor: Int
+  estado: Estado
+}
+
+type Query {
+  getBox(_id: ID): Box!
+  allBoxs(skip: Int, first: Int, filter: String, orderBy: String): [Box]!
+  findAllBoxs(first: Int, cursor: String): [Box!]!
+}
+type Mutation {
+  createBox(input: BoxInput!): Box!
+  updateBox(_id: ID!, input: BoxInput!): Box!
+  deleteBox(_id: ID!): Box!
+}
+type Subscription {
+  newBox: Box
+  upBox: Box
+}
